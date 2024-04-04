@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Invest AI </title>
+    <link rel="stylesheet" href="nav.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Carrois+Gothic&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <a href="home.html"> <img src="Imagens/LogoPreto.png"  alt="Logo Invest AI"> </a>
+        </div>
+
+        <div class="hamburger" onclick="toggleNav()">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+
+        <ul class="linksNav" id="linksNav">
+            <li><a href="home.html">Página Inicial</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="cadastro.html">Cadastro</a></li>
+        </ul>
+    </nav>
+
+    <footer class="footer">
+        <p>&copy; 2024  Invest AI</p>
+    </footer>
+
+    <script>
+        function toggleNav() {
+            var linksNav = document.getElementById('linksNav');
+            linksNav.classList.toggle('active');
+        }
+    </script>
+
+</body>
+</html>

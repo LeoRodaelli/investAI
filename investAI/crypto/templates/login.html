@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Invest AI </title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Carrois+Gothic&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Meta tag para viewport -->
+</head>
+<body>
+
+    <div id="nav"></div>
+
+    <div class="conteudo">
+        <form id="form" name="form">
+            <h2>Faça login em sua conta:</h2>
+            <input type="email" placeholder="email@dominio.com" required>
+            <input type="password" id="senha" name="senha" placeholder="Senha" oninput="validarSenha(this)" required>
+            <a href="cadastro.html" class="semCadastro"> Não tenho cadastro! </a>
+        </form>
+
+        <button type="submit" class="button"> Enviar </button>
+
+
+    </div>
+
+    <script src="login.js"></script>
+
+</body>
+</html>

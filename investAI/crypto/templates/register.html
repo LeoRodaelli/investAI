@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Invest AI </title>
+    <link rel="stylesheet" href="cadastro.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Carrois+Gothic&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Meta tag para viewport -->
+</head>
+<body>
+
+    <div id="nav"></div> 
+
+    <div class="conteudo">
+        <form id="form" name="form">
+            <h2>Cadastre sua conta:</h2>
+            <input type="text" placeholder="Nome Completo" required>
+            <input type="email" placeholder="email@dominio.com" required>
+            <input type="date" id="data" name="data" required>
+            <p id="mensagemIdade"></p>
+            <input type="text" id="cpf" name="cpf" placeholder="CPF" oninput="formatarCPF(this)" maxlength="14" required>
+            <input type="text" id="telefone" name="telefone" placeholder="Telefone Celular" maxlength="15" oninput="formatarTelefone(this)" required>
+            <input type="password" id="senha" name="senha" placeholder="Senha" oninput="validarSenha(this)" required>
+            <input type="password" id="confirmarSenha" name="confirmarSenha" placeholder="Confirmar Senha" oninput="validarConfirmacaoSenha()" required>
+        
+            <p> Senha deve ter no mínimo 8 caracteres, 1 letra maiúscula, 1 número e 1 caractere especial.</p>
+
+            <div id="requisitosSenha">
+                <ul>
+                    <li id="letraMaiuscula"> ▻ Pelo menos uma letra maiúscula</li>
+                    <li id="numero"> ▻ Pelo menos um número</li>
+                    <li id="especial"> ▻ Pelo menos um caractere especial</li>
+                    <li id="tamanho"> ▻ No mínimo 8 caracteres</li>
+                </ul>
+            </div>
+            <div id="mensagemSenha"></div>
+            <div id="mensagemConfirmacaoSenha"></div>
+        </form>
+
+        <button type="submit" class="button"> Enviar </button>
+        
+        
+    </div>
+    
+    <script src="cadastro.js"></script>
+
+</body>
+</html>

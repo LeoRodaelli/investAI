@@ -1,0 +1,85 @@
+.conteudo {
+    text-align: center;
+    margin-top: 50px;
+    width: 100%;
+}
+
+.conteudo input {
+    width: 20%;
+    max-width: 450px;
+    height: 35px;
+    border-radius: 20px;
+    text-align: center;
+    border: 1.5px solid;
+    border-color: #E6B43E;
+    box-sizing: border-box; /* Faz com que a largura inclua o padding e a borda */
+    display: block; /* Exibe os inputs um abaixo do outro */
+    margin: 20px auto; /* Centraliza os inputs na página */
+    margin-bottom: 0;
+    font-family: 'Carrois Gothic', sans-serif;
+
+}
+
+#data::-webkit-datetime-edit-text {
+    color: rgb(108, 106, 106); /* Altere para a cor desejada */
+}
+
+#data::-webkit-datetime-edit-fields-wrapper {
+    color: rgb(108, 106, 106); /* Altere para a cor desejada */
+}
+
+#mensagemSenha, #mensagemConfirmacaoSenha, #mensagemIdade {
+    font-size: 12px;
+    color: rgb(240, 110, 110);
+}
+
+p {
+    font-family: 'Carrois Gothic', sans-serif;
+    margin-top: 10px;
+    font-size: 10px; /* Tamanho da fonte */
+    color: gray; /* Cor do texto */
+}
+
+#requisitosSenha {
+    text-align: center; /* Centraliza o conteúdo dentro do contêiner */
+}
+
+#requisitosSenha ul {
+    display: inline-block; /* Permite que o contêiner se ajuste ao tamanho da lista */
+    text-align: left; /* Alinha o texto à esquerda dentro da lista */
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0; /* Remove a margem padrão */
+}
+
+#requisitosSenha li {
+    font-size: 12px;
+    color: gray;
+}
+
+.button {
+    display: block;
+    width: 150px;
+    margin: 30px auto;
+    padding: 10px 20px;
+    background-color: #d4a330;
+    color: white;
+    text-align: center;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    font-size: 14px;
+    margin-bottom: 100px;
+    border: none;
+}
+
+
+.button:hover {
+    background-color: #333;
+}
+
+.button:disabled {
+    background-color: #ccc; /* Cor acizentada */
+    color: #999; /* Cor do texto acizentado */
+    cursor: not-allowed; /* Cursor padrão quando desativado */
+}

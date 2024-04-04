@@ -1,0 +1,56 @@
+<!--{% extends 'base.html' %}-->
+<!--{% load static %}-->
+
+<!--{% block title %}-->
+<!--Smart Finance - criar conta-->
+<!--{% endblock %}-->
+
+<!--{% block content %}-->
+<!--<input type="checkbox" id="light">-->
+<!--<label class="light-mode-toggler" for="light">-->
+<!--    <div></div>-->
+<!--</label>-->
+<!--<div class="page2">-->
+<!--    <header>-->
+<!--        <div class="header2">-->
+<!--            <img src="{% static 'images/logo.svg' %}" alt="logo do site" />-->
+<!--            <div class="name">Smart Finance</div>-->
+<!--        </div>-->
+<!--    </header>-->
+<!--    <form id="my-form" method="post">-->
+<!--        {% csrf_token %}-->
+<!--        <fieldset>-->
+<!--            <div class="fieldset-wrapper">-->
+<!--                <legend>Cadastrar</legend>-->
+<!--                <div class="input-wrapper">-->
+<!--                    <label for="email">Email</label>-->
+<!--                    <input type="email" name="email" id="email" required value="{{ email }}">-->
+<!--                </div>-->
+<!--                <div class="input-wrapper">-->
+<!--                    <label for="password">Senha</label>-->
+<!--                    <input type="password" name="password" id="password" required minlength="8">-->
+<!--                </div>-->
+<!--                <div class="input-wrapper">-->
+<!--                    <label for="confirm-password">Confirmar Senha</label>-->
+<!--                    <input type="password" name="confirm-password" id="confirm-password" required minlength="8">-->
+<!--                </div>-->
+<!--                {% if error %}-->
+<!--                    <p>{{ error }}</p>-->
+<!--                {% endif %}-->
+<!--                <div class="input-wrapper">-->
+<!--                    <div class="buttons-create">-->
+<!--                        <button class="blue_b" type="submit">Cadastrar</button>-->
+<!--                        <a href="{% url 'crypto:index' %}">-->
+<!--                            <button class="white_b" type="button">Voltar</button>-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="checkbox-layout">-->
+<!--                <input class="checkbox" type="checkbox" name="" id="checkbox">-->
+<!--                <label for="checkbox">Lembre-se de mim?</label>-->
+<!--            </div>-->
+<!--        </fieldset>-->
+<!--    </form>-->
+<!--</div>-->
+<!--{% endblock %}-->
