@@ -1,20 +1,24 @@
-on:
-  push:
-    branches:
-      - main
-name: 🚀 Deploy website on push
-jobs:
-  web-deploy:
-    name: 🎉 Deploy
-    runs-on: ubuntu-latest
-    steps:
-      - name: 🚚 Get latest code
-        uses: actions/checkout@v2
+name: Execute Python Script
 
-      - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+on:
+  schedule:
+    - cron: '30 20 * * *'  # Executar todos os dias à meia-noite
+
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
         with:
-          server: ${{ secrets.ftp_host }}
-          username: ${{ secrets.ftp_user }}
-          password: ${{ secrets.ftp_password }}
-          server-dir: 
+          python-version: '3.10.9'  # Especifique a versão do Python que você está usando
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt  # Se você tiver um arquivo de requisitos
+
+      - name: Execute Python Script
+        run: python save_banco.py  # Substitua "seu_arquivo.py" pelo nome do seu arquivo Python
