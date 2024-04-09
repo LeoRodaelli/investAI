@@ -2,9 +2,8 @@ import pymongo
 from pymongo import MongoClient
 from datetime import datetime, timedelta
 import yfinance as yf
-from raw import conectar_mongodb
 
-# Definir a função para lidar com a subtração de dias com base na versão do Python
+# Função para lidar com a subtração de dias com base na versão do Python
 def subtract_days(dt, days):
     if hasattr(dt, 'subtract'):  # Verifica se o método 'subtract' existe
         return dt.subtract(timedelta(days=days))
@@ -12,43 +11,36 @@ def subtract_days(dt, days):
         return dt - timedelta(days=days)
 
 # Função para salvar histórico no MongoDB
-def salvar_historico(df, ticker):
-
-    # Conectar ao MongoDB usando a string de conexão das variáveis de ambiente
-   # Conectar ao cliente MongoDB
-    client = conectar_mongodb()
-
-    # Acessar banco de dados e coleção
-    db = client["Invest"]
-    collection = db["historico"]
-
-    # Criar dicionários para cada dia
-    data_dict = []
+def salvar_historico(df, ticker, collection):
     for i in range(len(df)):
-        # Verificar se o documento já existe no banco de dados
-        if collection.count_documents({"data": df.index[i].strftime('%Y-%m-%d'), "ticker": ticker}) == 0:
-            data_dict.append({
-                "data": df.index[i].strftime('%Y-%m-%d'),
+        data = df.index[i].strftime('%Y-%m-%d')
+        if collection.count_documents({"data": data, "ticker": ticker}) == 0:
+            documento = {
                 "ticker": ticker,
-                "Close": df['Close'].iloc[i],
-                "WMA": df['WMA'].iloc[i]
-            })
+                "data": data,
+                "fechamento": df.iloc[i]["Close"]
+            }
+            collection.insert_one(documento)
+            print("Novo documento inserido:", documento)
+        else:
+            print("Documento já existe para data", data, "e ticker", ticker)
 
-    # Inserir dicionários na coleção
-    if data_dict:
-        collection.insert_many(data_dict)
-        print(f"{len(data_dict)} documentos inseridos no banco de dados.")
-    else:
-        print("Nenhum novo documento inserido no banco de dados.")
+# Conectar ao MongoDB
+def conectar_mongodb():
+    # Substitua "<username>" e "<password>" pelas suas credenciais
+    connection_string = "mongodb+srv://matheusp4:b4YEq95UskHGaC3k@invest.aju5sat.mongodb.net/?retryWrites=true&w=majority&appName=Invest"
+    client = pymongo.MongoClient(connection_string)
+    return client
 
-    # Verificar se a conexão foi estabelecida com sucesso
-    if "Invest" in client.list_database_names():
-        print("Conexão bem-sucedida com o banco de dados 'Invest'.")
-    else:
-        print("Erro ao conectar ao banco de dados 'Invest'.")
+# Lista de tickers
+tickers = ["AAPL", "BTC-USD"]
 
-# Definir as variáveis
-ticker = 'AAPL'  # Ajustar o ticker desejado para ser pego pelo Site
+# Conectar ao MongoDB
+client = conectar_mongodb()
+db = client.Invest  # Nome do banco de dados
+collection = db.historico  # Nome da coleção
+
+# Definir a data de hoje
 hoje = datetime.today().strftime('%Y-%m-%d')
 hoje_dt = datetime.strptime(hoje, '%Y-%m-%d')
 fim = hoje_dt - timedelta(days=1)
@@ -56,11 +48,12 @@ fim = hoje_dt - timedelta(days=1)
 # Definir data de início: 3 anos atrás
 inicio = subtract_days(fim, 3*365)
 
-# Carregar dados
-df = yf.Ticker(ticker).history(interval='1d', start=inicio, end=fim)
+for ticker in tickers:
+    # Carregar dados
+    df = yf.Ticker(ticker).history(interval='1d', start=inicio, end=fim)
 
-# Calcular WMA
-df['WMA'] = df['Close'].rolling(window=14).mean()
+    # Calcular WMA
+    df['WMA'] = df['Close'].rolling(window=14).mean()
 
-# Salvar histórico no MongoDB
-salvar_historico(df, ticker)
+    # Salvar histórico no MongoDB
+    salvar_historico(df, ticker, collection)
