@@ -32,8 +32,6 @@ collection.update_one({"nome": "MGLU3"}, {"$set": {"preco": 30.00}})
 
 def conectar_mongodb():
    
-
-    # Substitua "<username>" e "<password>" pelas suas credenciais
     connection_string = "mongodb+srv://matheusp4:b4YEq95UskHGaC3k@invest.aju5sat.mongodb.net/?retryWrites=true&w=majority&appName=Invest"
     client = pymongo.MongoClient(connection_string)
 
