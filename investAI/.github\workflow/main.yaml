@@ -2,7 +2,7 @@ name: Execute Python Script
 
 on:
   schedule:
-    - cron: '30 20 * * *'  # Executar todos os dias à meia-noite
+    - cron: '0 3 * * *'  # 
 
 jobs:
   execute:
