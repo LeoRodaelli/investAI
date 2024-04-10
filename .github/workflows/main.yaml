@@ -1,8 +1,8 @@
 name: Execute Python Script
 
+# Permite acionar o workflow manualmente a partir do GitHub
 on:
-  #schedule:
-  #  - cron: '40 20 * * *'  # Executar todos os dias à meia-noite
+  workflow_dispatch:
 
 jobs:
   execute:
@@ -21,4 +21,4 @@ jobs:
         run: pip install -r requirements.txt  # Se você tiver um arquivo de requisitos
 
       - name: Execute Python Script
-        run: python save_banco.py  # Substitua "seu_arquivo.py" pelo nome do seu arquivo Python
+        run: python save_banco.py  # Substitua "save_banco.py" pelo nome do seu arquivo Python
