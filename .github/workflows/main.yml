@@ -2,7 +2,7 @@ name: Execute Python Script
 
 on:
   schedule:
-    - cron: '40 0 * * *'  # Executar todos os dias às 00:40 UTC, que corresponde a 21:40 no horário de Brasília (BRT, UTC-3)
+    - cron: '47 0 * * *'  # Executar todos os dias às 00:40 UTC, que corresponde a 21:40 no horário de Brasília (BRT, UTC-3)
 
 jobs:
   execute:
