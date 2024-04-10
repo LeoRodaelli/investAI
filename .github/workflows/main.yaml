@@ -1,8 +1,8 @@
 name: Execute Python Script
 
 on:
-  schedule:
-    - cron: '40 20 * * *'  # Executar todos os dias à meia-noite
+  #schedule:
+  #  - cron: '40 20 * * *'  # Executar todos os dias à meia-noite
 
 jobs:
   execute:
