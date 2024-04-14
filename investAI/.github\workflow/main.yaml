@@ -17,8 +17,8 @@ jobs:
         with:
           python-version: '3.10.9'  # Especifique a versão do Python que você está usando
 
-      - name: Install Dependencies
-        run: pip install -r requirements.txt  # Se você tiver um arquivo de requisitos
+      #- name: Install Dependencies
+        #run: pip install -r requirements.txt  # Se você tiver um arquivo de requisitos
 
       - name: Execute Python Script
         run: python save_banco.py  # Substitua "seu_arquivo.py" pelo nome do seu arquivo Python
