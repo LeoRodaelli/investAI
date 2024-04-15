@@ -1,11 +1,9 @@
 from django.urls import path
-from .views import Index, Register, Login, Home
-
-app_name = 'crypto'
+from .views import home, nav, login, register
 
 urlpatterns = [
-    path('', Index.as_view(), name='index'),
-    path('register/', Register.as_view(), name='register'),
-    path('login/', Login.as_view(), name='login'),
-    path('home/', Home.as_view(), name='home'),
+    path('', home, name='home'),
+    path('nav/', nav, name='nav'),
+    path('login/', login, name='login'),
+    path('register/', register, name='register'),
 ]

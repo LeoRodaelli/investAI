@@ -89,3 +89,15 @@ class Home(TemplateView):
 
         mongo_client.close()
         return context
+
+def home(request):
+    return render(request, 'home.html')
+
+def nav(request):
+    return render(request, 'nav.html')
+
+def login(request):
+    return render(request, 'login.html')
+
+def register(request):
+    return render(request, 'register.html')

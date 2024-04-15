@@ -2,7 +2,8 @@
 <html>
 <head>
     <title> Invest AI </title>
-    <link rel="stylesheet" href="cadastro.css">
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Carrois+Gothic&display=swap" rel="stylesheet">
@@ -10,7 +11,7 @@
 </head>
 <body>
 
-    <div id="nav"></div> 
+    <div id="nav">{% include 'nav.html' %}</div> 
 
     <div class="conteudo">
         <form id="form" name="form">

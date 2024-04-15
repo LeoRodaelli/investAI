@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title> Invest AI </title>
-    <link rel="stylesheet" href="nav.css">
+    <title>
+        {% block title %}
+            Invest AI
+        {% endblock %}
+    </title>
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +17,7 @@
 <body>
     <nav>
         <div class="logo">
-            <a href="home.html"> <img src="Imagens/LogoPreto.png"  alt="Logo Invest AI"> </a>
+            <a href="{% url 'home' %}"> <img src="{% static 'images/LogoPreto.png' %}" alt="Logo Invest AI"> </a>
         </div>
 
         <div class="hamburger" onclick="toggleNav()">
@@ -22,14 +27,14 @@
         </div>
 
         <ul class="linksNav" id="linksNav">
-            <li><a href="home.html">Página Inicial</a></li>
-            <li><a href="login.html">Login</a></li>
-            <li><a href="cadastro.html">Cadastro</a></li>
+            <li><a href="{% url 'home' %}">Página Inicial</a></li>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'register' %}">Cadastro</a></li>
         </ul>
     </nav>
 
     <footer class="footer">
-        <p>&copy; 2024  Invest AI</p>
+        <p>&copy; 2024 Invest AI</p>
     </footer>
 
     <script>
@@ -41,3 +46,4 @@
 
 </body>
 </html>
+

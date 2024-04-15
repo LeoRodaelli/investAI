@@ -1,42 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title> Invest AI </title>
-    <link rel="stylesheet" href="home.css">
+    <title>Invest AI</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Carrois+Gothic&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Meta tag para viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
-    <div id="nav"></div>
+    <div id="nav">{% include 'nav.html' %}</div>
 
     <div class="conteudo">
 
         <!--banner-->
         <section class="carousel">
             <div class="paineis">
-                <article class="page1"><img src= "Imagens/Saiba.png" alt=""></article>
-                <article class="page2"><img src="Imagens/Saiba2.png" alt=""></article>
+                <article class="page1"><img src= "{% static 'images/Saiba.png' %}" alt=""></article>
+                <article class="page2"><img src="{% static 'images/Saiba2.png' %}" alt=""></article>
             </div>
         </section>
         <!--banner-->
 
         <h2>Venha fazer parte!</h2>
-        <a href="cadastro.html" class="button">Cadastre-se</a>
+        <a href="{% url 'register' %}" class="button">Cadastre-se</a>
 
     </div>
 
     <script>
-        window.addEventListener('DOMContentLoaded', function() {
-            fetch('nav.html')
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById('nav').innerHTML = html;
-                });
-        });
-
         var paineis = document.querySelector('.paineis');
         var carousel = document.querySelector('.carousel');
         var intervalo = 5000;
