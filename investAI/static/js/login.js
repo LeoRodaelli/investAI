@@ -19,11 +19,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
 /* --------------------------- Adicionando a nav --------------------------------- */
 
-window.addEventListener('DOMContentLoaded', function() {
-    fetch('nav.html')
+window.addEventListener('DOMContentLoaded', function () {
+    fetch('../../crypto/templates/nav.html')  // Caminho relativo para o arquivo nav.html
         .then(response => response.text())
         .then(html => {
             document.getElementById('nav').innerHTML = html;

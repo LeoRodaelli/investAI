@@ -1,8 +1,8 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var dataNascimento = document.getElementById('data');
     var mensagemIdade = document.getElementById('mensagemIdade');
 
-    dataNascimento.addEventListener('change', function() {
+    dataNascimento.addEventListener('change', function () {
         var hoje = new Date();
         var data = new Date(this.value);
         var idade = hoje.getFullYear() - data.getFullYear();
@@ -86,7 +86,7 @@ function validarConfirmacaoSenha() {
 }
 
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var form = document.querySelector('form');
     var button = document.querySelector('button[type="submit"]');
 
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var inputs = form.querySelectorAll('input');
         var camposValidos = true;
 
-        inputs.forEach(function(input) {
+        inputs.forEach(function (input) {
             if (!input.checkValidity()) {
                 camposValidos = false;
             }
@@ -107,22 +107,21 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var form = document.getElementById('form');
 
-    form.addEventListener('submit', function(event) {
+    form.addEventListener('submit', function (event) {
         event.preventDefault(); // Previne o comportamento padrão de envio do formulário
 
         // Aqui você pode adicionar o código para enviar os dados do formulário
-        console.log('Formulário enviado');
     });
 });
 
 
 /* --------------------------- Adicionando a nav --------------------------------- */
 
-window.addEventListener('DOMContentLoaded', function() {
-    fetch('nav.html')
+window.addEventListener('DOMContentLoaded', function () {
+    fetch('../../crypto/templates/nav.html')  // Caminho relativo para o arquivo nav.html
         .then(response => response.text())
         .then(html => {
             document.getElementById('nav').innerHTML = html;

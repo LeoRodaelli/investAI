@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title> Invest AI </title>
-    {%load static%}
+    <title>Invest AI</title>
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Carrois+Gothic&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Meta tag para viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
-    <div id="nav">{% include 'nav.html' %}</div> 
+    <div id="nav">{% include 'nav.html' %}</div>
 
     <div class="conteudo">
-        <form id="form" name="form">
+        <form id="form" name="form" method="post" action="{% url 'register' %}">
+            {% csrf_token %}
             <h2>Cadastre sua conta:</h2>
-            <input type="text" placeholder="Nome Completo" required>
-            <input type="email" placeholder="email@dominio.com" required>
+            <input type="text" id="name" name="nome" placeholder="Nome Completo" required>
+            <input type="email" id = "email" name="email" placeholder="email@dominio.com" required>
             <input type="date" id="data" name="data" required>
             <p id="mensagemIdade"></p>
             <input type="text" id="cpf" name="cpf" placeholder="CPF" oninput="formatarCPF(this)" maxlength="14" required>
@@ -37,14 +38,18 @@
             </div>
             <div id="mensagemSenha"></div>
             <div id="mensagemConfirmacaoSenha"></div>
-        </form>
 
-        <button type="submit" class="button"> Enviar </button>
-        
-        
+            <button type="submit" class="button" onclick="logSubmit()">Enviar</button>
+        </form>
     </div>
-    
-    <script src="cadastro.js"></script>
+
+    <script src="{% static 'js/cadastro.js' %}"></script>
+    <script>
+        function logSubmit() {
+            console.log("Formulário enviado");
+        }
+    </script>
+
 
 </body>
 </html>

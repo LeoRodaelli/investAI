@@ -8,8 +8,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Carrois+Gothic&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Meta tag para viewport -->
+    <script src="{% static "js/login.js"%}"></script>
 </head>
 <body>
+
+    
 
     <div id="nav">{% include 'nav.html' %}</div>
 
@@ -17,7 +20,7 @@
         <form id="form" name="form">
             <h2>Faça login em sua conta:</h2>
             <input type="email" placeholder="email@dominio.com" required>
-            <input type="password" id="senha" name="senha" placeholder="Senha" oninput="validarSenha(this)" required>
+            <input type="password" id="senha" name="senha" placeholder="Senha" required>
             <a href="cadastro.html" class="semCadastro"> Não tenho cadastro! </a>
         </form>
 
@@ -26,7 +29,7 @@
 
     </div>
 
-    <script src="login.js"></script>
+    
 
 </body>
 </html>
