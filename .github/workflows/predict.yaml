@@ -20,7 +20,13 @@ jobs:
       - name: Install Dependencies and Run Script
         run: |
           python -m pip install --upgrade pip
-          %pip install pandas numpy scikit-learn matplotlib seaborn pymongo dnspython
+          pip install pandas
+          pip install numpy
+          pip install scikit-learn
+          pip install matplotlib
+          pip install seaborn
+          pip install pymongo
+          pip install dnspython
           pip install yfinance
           python model training.py
           python predict.py
