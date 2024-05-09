@@ -1,8 +1,8 @@
 name: Execute Python Script
 
 on:
-  schedule:
-    - cron: '0 2 * * *'  # Executar todos os dias às 02:00 UTC
+  workflow_dispatch:
+
 
 jobs:
   execute:
@@ -22,4 +22,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install pymongo
           python save_banco.py
+      - name: List Installed Packages
+        run: |
+          pip list
 
