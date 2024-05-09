@@ -2,7 +2,7 @@ name: Execute Python Script
 
 on:
   schedule:
-    - cron: '0 2 * * *'  # Executa todos os dias às 02:00 UTC
+    - cron: '0 2 * * *'  # Executar todos os dias às 02:00 UTC
 
 jobs:
   execute:
@@ -23,4 +23,4 @@ jobs:
           pip install pymongo
 
       - name: Execute Python Script
-        run: python save_banco.py  
+        run: python save_banco.py
