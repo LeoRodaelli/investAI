@@ -46,7 +46,7 @@ hoje_dt = datetime.strptime(hoje, '%Y-%m-%d')
 fim = hoje_dt - timedelta(days=1)
 
 # Definir data de início: 3 anos atrás
-inicio = subtract_days(fim, 7)
+inicio = subtract_days(fim, 1)
 
 for ticker in tickers:
     # Carregar dados
