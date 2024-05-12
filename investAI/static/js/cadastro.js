@@ -106,24 +106,16 @@ document.addEventListener('DOMContentLoaded', function () {
     form.addEventListener('input', verificarCampos);
 });
 
-
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     var form = document.getElementById('form');
 
-    form.addEventListener('submit', function (event) {
-        event.preventDefault(); // Previne o comportamento padrão de envio do formulário
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Evita o comportamento padrão de envio do formulário
 
-        // Aqui você pode adicionar o código para enviar os dados do formulário
     });
 });
 
 
 /* --------------------------- Adicionando a nav --------------------------------- */
 
-window.addEventListener('DOMContentLoaded', function () {
-    fetch('../../crypto/templates/nav.html')  // Caminho relativo para o arquivo nav.html
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById('nav').innerHTML = html;
-        });
-});
+

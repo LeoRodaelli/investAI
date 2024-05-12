@@ -1,8 +1,9 @@
 from django.views.generic import TemplateView
-from django.shortcuts import render
-from pymongo import MongoClient
+from django.shortcuts import render, redirect, reverse
 from django.conf import settings
-from django.shortcuts import redirect, reverse
+from django.http import HttpResponse, HttpResponseRedirect
+from pymongo import MongoClient
+from .forms import RegistrationForm, LoginForm
 
 connection_string = "mongodb+srv://matheusp4:b4YEq95UskHGaC3k@invest.aju5sat.mongodb.net/?retryWrites=true&w=majority&appName=Invest"
 client = MongoClient(connection_string)
@@ -10,46 +11,50 @@ client = MongoClient(connection_string)
 class Index(TemplateView):
     template_name = 'index.html'
 
-
 class Register(TemplateView):
     template_name = 'register.html'
 
-    def get(self, request):
-        return render(request, self.template_name)
+    def get(self, response):
+        print("Tela de registro carregada")
+        return render(response, self.template_name)
 
-    def post(self, request):
-        email = self.request.POST.get('email')
-        name = self.request.POST.get('name')
-        telephone = self.request.POST.get('telefone')
-        cpf = self.request.POST.get('cpf')
-        password = self.request.POST.get('senhar')
-        confirm_password = self.request.POST.get('confirmarSenha')
-        print("Post")
+    def post(self, response):
+        print("Tentando fazer o registro")
 
         try:
-            mongo_client = MongoClient(connection_string)
-            db = client["Invest"]
-            users_collection = db["Usuarios"]
+            # Receber dados do formulário
+            email = response.POST.get('email')
+            name = response.POST.get('name')
+            telephone = response.POST.get('telefone')
+            cpf = response.POST.get('cpf')
+            password = response.POST.get('senha')
+            confirm_password = response.POST.get('confirmarSenha')
 
-            if users_collection.find_one({'email': email}):
-                mongo_client.close()
-                return render(request, self.template_name, {'error': 'E-mail já cadastrado', 'email': email})
+            # Configurar conexão com o MongoDB
+            mongo_client = MongoClient("mongodb+srv://matheusp4:b4YEq95UskHGaC3k@invest.aju5sat.mongodb.net/?retryWrites=true&w=majority&appName=Invest")  # Insira a sua connection string aqui
+            db = mongo_client["Invest"]
+            collection = db["Usuarios"]
 
-            elif password != confirm_password:
-                mongo_client.close()
-                return render(request, self.template_name, {'error': 'As senhas são diferentes', 'email': email})
+            # Criar documento para inserção no MongoDB
+            document = {
+                "nome": name,
+                "email": email,
+                "celular": telephone,
+                "cpf": cpf,
+                "senha": password,
+            }
 
-            else:
-                users_collection.insert_one({'nome': name, 'email': email,'celular':telephone,'cpf': cpf, 'senha': password})
-                mongo_client.close()
+            # Inserir documento na coleção
+            collection.insert_one(document)
 
-            login_url = reverse('crypto:login') + f'?email={email}'
-            return redirect(login_url)
+            print(f"Usuário '{name}' adicionado com sucesso!")
+
+            # Redirecionar para a página inicial
+            return render(response, 'home.html')
+        
         except Exception as e:
-            # Se ocorrer algum erro, imprima-o no terminal do servidor Django
-            print("Erro ao inserir dados no MongoDB:", e)
-            # Retorne uma resposta indicando que ocorreu um erro, por exemplo:
-            return render(request, self.template_name, {'error': 'Ocorreu um erro ao processar seu registro.'})
+            print(f"Erro ao processar o formulário: {e}")
+            return render(response, self.template_name, {'error_message': 'Erro ao processar o formulário. Por favor, tente novamente.'})
 
 
 class Login(TemplateView):
@@ -71,7 +76,7 @@ class Login(TemplateView):
 
         if user:
             mongo_client.close()
-            return redirect(reverse('crypto:Home'))
+            return render(request, 'home.html')
 
         mongo_client.close()
         return render(request, self.template_name, {'error': 'E-mail não cadastrado ou senha inválida', 'email': email})
@@ -108,14 +113,62 @@ class Nav(TemplateView):
     def get(self, request):
         return render(request, self.template_name)
 
+def register(response):
+    if response.method == "POST":
+        form = RegistrationForm(response.POST)
 
-def nav(request):
-    return render(request, 'nav.html')
+        if form.is_valid():
 
-def home(request):
-    return render(request, 'home.html')
+            nome = form.cleaned_data["nome"]
+            email = form.cleaned_data["email"]
+            data = form.cleaned_data["date"]
+            celular = form.cleaned_data["telefone"]
+            cpf = form.cleaned_data["cpf"]
+            senha = form.cleaned_data["senha"]
+            confirmar_senha = form.cleaned_data["confirmar_senha"]
 
-def login(request):
-    return render(request, 'login.html')
+            mongo_client = MongoClient("mongodb+srv://matheusp4:b4YEq95UskHGaC3k@invest.aju5sat.mongodb.net/?retryWrites=true&w=majority&appName=Invest")  # Insira a sua connection string aqui
+            db = mongo_client["Invest"]
+            collection = db["Usuarios"]
+
+            document = {
+                "nome": nome,
+                "email": email,
+                "celular": celular,
+                "cpf": cpf,
+                "senha": senha,
+            }
+
+            collection.insert_one(document)
+
+            print(f"Usuário adicionado com sucesso!")
+
+        return redirect("home")
+    else:
+        form = RegistrationForm()
+    return render(response, "register.html", {'form': form })
 
 
+def login(response):
+    if response.method == "POST":
+        form = LoginForm(response.POST)
+
+        if form.is_valid():
+            email = form.cleaned_data["email"]
+            senha = form.cleaned_data["senha"]
+
+            mongo_client = MongoClient("mongodb+srv://matheusp4:b4YEq95UskHGaC3k@invest.aju5sat.mongodb.net/?retryWrites=true&w=majority&appName=Invest")  # Insira a sua connection string aqui
+            db = mongo_client["Invest"]
+            collection = db["Usuarios"]
+
+            usuario = collection.find_one({"email": email, "senha": senha})
+
+            if usuario:
+                return HttpResponse("Usuário encontrado")
+            else:
+                return HttpResponse("Usuário não encontrado")
+            
+    else:
+        form = LoginForm()
+
+    return render(response, "login.html", {'form': form })

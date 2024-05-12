@@ -12,19 +12,16 @@
 </head>
 <body>
 
-    
-
     <div id="nav">{% include 'nav.html' %}</div>
 
     <div class="conteudo">
-        <form id="form" name="form">
+        <form id="form" name="form" method="post" action="/login/">
+            {% csrf_token %}
             <h2>Faça login em sua conta:</h2>
-            <input type="email" placeholder="email@dominio.com" required>
-            <input type="password" id="senha" name="senha" placeholder="Senha" required>
-            <a href="cadastro.html" class="semCadastro"> Não tenho cadastro! </a>
+            {{form}}
+            <a href="{% url "register" %}" class="semCadastro"> Não tenho cadastro! </a>
+            <button type="submit" class="button"> Enviar </button>
         </form>
-
-        <button type="submit" class="button"> Enviar </button>
 
 
     </div>

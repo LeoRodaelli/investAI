@@ -1,4 +1,6 @@
 
+from . import raw
+from raw import conectar_mongodb
 from pymongo import MongoClient
 
 def adicionar_usuario(nome, email, celular, cpf, senha):
@@ -17,7 +19,7 @@ def adicionar_usuario(nome, email, celular, cpf, senha):
     """
 
     # Importar a função de conexão do arquivo raw.py
-    from raw import conectar_mongodb
+    
 
     # Conectar ao cliente MongoDB
     client = conectar_mongodb()
