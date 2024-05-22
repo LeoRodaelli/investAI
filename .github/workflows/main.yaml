@@ -3,9 +3,8 @@ name: Execute Python Script
 on:
   workflow_dispatch:
 
-
 jobs:
-  execute:
+  auto-commit:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,10 +19,32 @@ jobs:
       - name: Install Dependencies and Run Script
         run: |
           python -m pip install --upgrade pip
+          pip install pandas
+          pip install numpy
+          pip install scikit-learn
+          pip install matplotlib
+          pip install seaborn
           pip install pymongo
+          pip install dnspython
           pip install yfinance
-          python save_banco.py
+          python model_training.py
+          python predict.py
+          
       - name: List Installed Packages
         run: |
           pip list
 
+      - name: Configuring git credentials
+        run: |
+          git config --global user.email "leo@rodaelli.com.br"
+          git config --global user.name "LeoRodaelli"
+
+      - name: Make changes
+        run: |
+          echo "Log of automatic commit at $(date)" >> autocommit.log
+
+      - name: Commit and push if changes
+        run: |
+          git add .
+          git commit -m "Automated commit on $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+          git push
