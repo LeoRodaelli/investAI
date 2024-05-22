@@ -43,40 +43,28 @@ class Nav(TemplateView):
     def get(self, request):
         return render(request, self.template_name)
 
+
 def register(response):
     if response.method == "POST":
         form = RegistrationForm(response.POST)
 
         if form.is_valid():
+            user_data = form.cleaned_data
 
-            nome = form.cleaned_data["name"]
-            email = form.cleaned_data["email"]
-            data = form.cleaned_data["date"]
-            celular = form.cleaned_data["telefone"]
-            cpf = form.cleaned_data["cpf"]
-            senha = form.cleaned_data["senha"]
-            confirmar_senha = form.cleaned_data["confirmar_senha"]
-
-            mongo_client = MongoClient("mongodb+srv://matheusp4:b4YEq95UskHGaC3k@invest.aju5sat.mongodb.net/?retryWrites=true&w=majority&appName=Invest")  # Insira a sua connection string aqui
+            mongo_client = MongoClient("mongodb+srv://matheusp4:b4YEq95UskHGaC3k@invest.aju5sat.mongodb.net/?retryWrites=true&w=majority&appName=Invest")
             db = mongo_client["Invest"]
             collection = db["Usuarios"]
 
-            document = {
-                "nome": nome,
-                "email": email,
-                "celular": celular,
-                "cpf": cpf,
-                "senha": senha,
-            }
+            collection.insert_one(user_data)
+            print("Usuário adicionado com sucesso!")
 
-            collection.insert_one(document)
-
-            print(f"Usuário adicionado com sucesso!")
-
-        return redirect("home")
+            return redirect("home")
+        else:
+            print("Formulário de registro não é válido.")
     else:
         form = RegistrationForm()
-    return render(response, "register.html", {'form': form })
+
+    return render(response, "register.html", {'form': form})
 
 
 def login(response):

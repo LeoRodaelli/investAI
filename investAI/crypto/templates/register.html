@@ -8,20 +8,32 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Carrois+Gothic&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <style>
+        .investor-type-info {
+            display: none;
+        }
+    </style>
+    <script>
+        function showInvestorTypeInfo() {
+            var type = document.getElementById("id_investor_type").value;
+            var infos = document.getElementsByClassName("investor-type-info");
+            for (var i = 0; i < infos.length; i++) {
+                infos[i].style.display = "none";
+            }
+            if (type) {
+                document.getElementById(type + "-info").style.display = "block";
+            }
+        }
+    </script>
 </head>
 <body>
-
-    <div id="nav">{%include "nav.html"%}</div>
-
+    <div id="nav">{% include "nav.html" %}</div>
     <div class="conteudo">
         <form id="form" name="form" method="post" action="/register/">
             {% csrf_token %}
             <h2>Cadastre sua conta:</h2>
-            {{form}}
-        
-            <p> Senha deve ter no mínimo 8 caracteres, 1 letra maiúscula, 1 número e 1 caractere especial.</p>
-
+            {{ form.as_p }}
+            <p>Senha deve ter no mínimo 8 caracteres, 1 letra maiúscula, 1 número e 1 caractere especial.</p>
             <div id="requisitosSenha">
                 <ul>
                     <li id="letraMaiuscula"> ▻ Pelo menos uma letra maiúscula</li>
@@ -33,9 +45,34 @@
             <div id="mensagemSenha"></div>
             <div id="mensagemConfirmacaoSenha"></div>
 
+<!--            <div>-->
+<!--                <h3>Escolha o tipo de investidor:</h3>-->
+<!--                <select id="id_investor_type" name="investor_type" onchange="showInvestorTypeInfo()">-->
+<!--                    <option value="">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+<!--                    <option value="aggressive">Agressivo</option>-->
+<!--                    <option value="moderate">Moderado</option>-->
+<!--                    <option value="conservative">Conservador</option>-->
+<!--                </select>-->
+<!--                <div id="aggressive-info" class="investor-type-info">-->
+<!--                    <p>Investidor Agressivo: Descrição do investidor agressivo...</p>-->
+<!--                </div>-->
+<!--                <div id="moderate-info" class="investor-type-info">-->
+<!--                    <p>Investidor Moderado: Descrição do investidor moderado...</p>-->
+<!--                </div>-->
+<!--                <div id="conservative-info" class="investor-type-info">-->
+<!--                    <p>Investidor Conservador: Descrição do investidor conservador...</p>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div>-->
+<!--                <label for="id_agree_terms">-->
+<!--                    <input type="checkbox" id="id_agree_terms" name="agree_terms">-->
+<!--                    Concordo com os termos e condições-->
+<!--                </label>-->
+<!--            </div>-->
+
             <button type="submit" class="button">Enviar</button>
         </form>
     </div>
-
 </body>
 </html>

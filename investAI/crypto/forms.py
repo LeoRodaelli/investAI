@@ -1,14 +1,22 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
+INVESTOR_TYPE_CHOICES = [
+    ('aggressive', 'Agressivo'),
+    ('moderate', 'Moderado'),
+    ('conservative', 'Conservador'),
+]
+
 class RegistrationForm(forms.Form):
     name = forms.CharField(max_length=100, label='', widget=forms.TextInput(attrs={'placeholder': 'Nome', 'id': 'name'}))
     email = forms.EmailField(label='', widget=forms.TextInput(attrs={'placeholder': 'Email', 'id': 'email'}))
-    date = forms.DateField(widget=forms.DateInput(attrs={"class": "form-control", "type": "date", "id": "data"}), label='')
+    # date = forms.DateField(widget=forms.DateInput(attrs={"class": "form-control", "type": "date", "id": "data"}), label='')
     telefone = forms.CharField(max_length=15, label='', widget=forms.TextInput(attrs={'placeholder': 'Telefone', 'id': 'telefone'}))
     cpf = forms.CharField(max_length=14, label='', widget=forms.TextInput(attrs={'placeholder': 'CPF', 'id': 'cpf'}))
     senha = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder': 'Senha', 'id': 'senha'}))
     confirmar_senha = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder': 'Confirmar Senha', 'id': 'confirmar_senha'}))
+    investor_type = forms.ChoiceField(choices=INVESTOR_TYPE_CHOICES, label='Tipo de Investidor')
+    agree_terms = forms.BooleanField(label='Concordo com os termos e condições')
 
 
     def clean_cpf(self):
