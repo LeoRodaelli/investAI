@@ -36,7 +36,7 @@ jobs:
 
       - name: Configuring git credentials
         run: |
-          git config --global user.email "leo@rodaelli.com.br"
+          git config --global user.email "leonardo@rodaelli.com.br"
           git config --global user.name "LeoRodaelli"
 
       - name: Make changes
