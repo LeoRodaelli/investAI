@@ -40,7 +40,7 @@ jobs:
 
       - name: Set up repository
         run: |
-          git remote set-url origin https://LeoRodaelli:${{ secrets.GH_TOKEN }}@github.com/LeoRodaelli/investAI.git
+          git remote set-url origin https://LeoRodaelli:${{ secrets.GH_TOKEN }}@github.com/LeoRodaelli/investAI
 
       - name: Make changes
         run: |
