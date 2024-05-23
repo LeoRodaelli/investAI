@@ -29,7 +29,6 @@ jobs:
           pip install yfinance
           python model_training.py
           python predict.py
-          
       - name: List Installed Packages
         run: |
           pip list
