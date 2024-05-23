@@ -4,7 +4,7 @@
     width: 100%;
 }
 
-.conteudo input {
+.conteudo input, select {
     width: 20%;
     max-width: 450px;
     height: 35px;
@@ -15,7 +15,7 @@
     box-sizing: border-box; /* Faz com que a largura inclua o padding e a borda */
     display: block; /* Exibe os inputs um abaixo do outro */
     margin: 20px auto; /* Centraliza os inputs na página */
-    margin-bottom: 0;
+    margin-bottom: 20px;
     font-family: 'Carrois Gothic', sans-serif;
 
 }

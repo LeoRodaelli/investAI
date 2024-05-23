@@ -54,8 +54,10 @@ def register(response):
             data = form.cleaned_data["date"]
             celular = form.cleaned_data["telefone"]
             cpf = form.cleaned_data["cpf"]
+            perfil = form.cleaned_data["perfil_investidor"]
             senha = form.cleaned_data["senha"]
-            confirmar_senha = form.cleaned_data["confirmar_senha"]
+
+            data = str(data)
 
             mongo_client = MongoClient("mongodb+srv://matheusp4:b4YEq95UskHGaC3k@invest.aju5sat.mongodb.net/?retryWrites=true&w=majority&appName=Invest")  # Insira a sua connection string aqui
             db = mongo_client["Invest"]
@@ -67,6 +69,8 @@ def register(response):
                 "celular": celular,
                 "cpf": cpf,
                 "senha": senha,
+                "data": data,
+                "perfil": perfil
             }
 
             collection.insert_one(document)
@@ -79,30 +83,56 @@ def register(response):
     return render(response, "register.html", {'form': form })
 
 
-def login(response):
-    if response.method == "POST":
-        form = LoginForm(response.POST)
+def login(request):
+    if request.method == "POST":
+        form = LoginForm(request.POST)
 
         if form.is_valid():
             email = form.cleaned_data["email"]
             senha = form.cleaned_data["senha"]
 
-            mongo_client = MongoClient("mongodb+srv://matheusp4:b4YEq95UskHGaC3k@invest.aju5sat.mongodb.net/?retryWrites=true&w=majority&appName=Invest")  # Insira a sua connection string aqui
+            mongo_client = MongoClient("mongodb+srv://matheusp4:b4YEq95UskHGaC3k@invest.aju5sat.mongodb.net/?retryWrites=true&w=majority&appName=Invest")
             db = mongo_client["Invest"]
             user_collection = db["Usuarios"]
             prediction_collection = db["predictions"]
 
             usuario = user_collection.find_one({"email": email, "senha": senha})
-            previsao = prediction_collection.find()
+            previsao = prediction_collection.find_one({"model": "GradientBoosting"})
 
             if usuario:
-                for i in previsao:
-                    print(i)
-                return (HttpResponse(f"Usuário encontrado {usuario}"))
+
+                usuario["_id"] = str(usuario["_id"])
+                if previsao and "_id" in previsao:
+                    previsao["_id"] = str(previsao["_id"])
+                # Armazenando informações na sessão
+                request.session['email'] = email
+                request.session['usuarioName'] = usuario["nome"]
+                request.session['cpf'] = usuario["cpf"]
+                request.session['perfil'] = usuario["perfil"]
+                request.session['previsao'] = previsao
+
+                print(usuario['perfil'])
+
+                return redirect('homeLogado')  # Nome da URL para a página de destino
             else:
-                return HttpResponse("Usuário não encontrado")
-            
+                return redirect("login")
     else:
         form = LoginForm()
 
-    return render(response, "login.html", {'form': form })
+    return render(request, "login.html", {'form': form})
+
+# views.py para a página homeLogado
+def homeLogado(request):
+    email = request.session.get('email')
+    usuarioName = request.session.get('usuarioName')
+    cpf = request.session.get('cpf')
+    previsao = request.session.get('previsao')
+    perfil = request.session.get('perfil')
+
+    return render(request, "homeLogado.html", {
+        'email': email, 
+        'previsao': previsao, 
+        'usuarioName': usuarioName,
+        'cpf': cpf,
+        'perfil': perfil
+    })

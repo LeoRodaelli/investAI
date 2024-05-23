@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invest AI</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/homeLogado.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Carrois+Gothic&display=swap" rel="stylesheet">
+    <script src="{% static "js/login.js"%}"></script>
+</head>
+<body>
+    <div id="nav">{% include 'nav.html' %}</div>
+
+    <div class="conteudo">
+        <h1>Olá {{usuarioName}}!</h1>
+        <p>Seja bem-vindo à sua área logada.</p>
+        <div class="infosInvestidor">
+            <p>▻ Perfil de Investidor: {{perfil}}</p>
+            <p>▻ Email: {{email}}</p>
+            <p>▻ CPF: {{cpf}}</p>
+        </div>
+
+        <div class="tendencias">
+            <button class="model">Veja as tendências aqui</button>
+        </div>
+
+        <div class="imagem">
+            <img src="{% static "images/Banner5.png" %}" alt="Banner investimento">
+        </div>
+
+        <div id="popup" class="popup" style="display: none;">
+            <div class="popup-content">
+                <span class="close">&times;</span>
+
+                <h1>Atenção! As tendências que serão exibidas não são exatas e podem conter discrepâncias.</h1>
+                <p>Selecione aqui a ação que deseja consultar as tendências:</p>
+                <select id="listaAcoes" name="listaAcoes">
+                    <option value="" disabled selected>Selecione</option>
+                    <option value="opcao1">Opção 1</option>
+                    <option value="opcao2">Opção 2</option>
+                    <option value="opcao3">Opção 3</option>
+                </select>
+
+                <div class="tendencia" id="tendencia" style="display: none;">
+                    <p>Vai aparecer aqui</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="botoes">
+            <a href="carteira.html" type="button">Carteira Digital</a>
+            <a href="perfil.html" type="button">Perfil do Investidor</a>
+        </div>
+    </div>
+
+    
+</body>
+</html>

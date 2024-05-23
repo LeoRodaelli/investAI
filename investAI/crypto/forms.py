@@ -1,5 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
+import re
 
 class RegistrationForm(forms.Form):
     name = forms.CharField(max_length=100, label='', widget=forms.TextInput(attrs={'placeholder': 'Nome', 'id': 'name'}))
@@ -7,9 +8,30 @@ class RegistrationForm(forms.Form):
     date = forms.DateField(widget=forms.DateInput(attrs={"class": "form-control", "type": "date", "id": "data"}), label='')
     telefone = forms.CharField(max_length=15, label='', widget=forms.TextInput(attrs={'placeholder': 'Telefone', 'id': 'telefone'}))
     cpf = forms.CharField(max_length=14, label='', widget=forms.TextInput(attrs={'placeholder': 'CPF', 'id': 'cpf'}))
+    perfil_investidor = forms.ChoiceField(label='Tipo de Investidor', choices=[
+        ('conservador', 'Conservador'),
+        ('moderado', 'Moderado'),
+        ('arrojado', 'Arrojado'),
+    ], widget=forms.Select(attrs={'id':'perfil_investidor'}))
     senha = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder': 'Senha', 'id': 'senha'}))
     confirmar_senha = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder': 'Confirmar Senha', 'id': 'confirmar_senha'}))
 
+    def clean_senha(self):
+        senha = self.cleaned_data.get('senha')
+
+        if len(senha) < 8:
+            raise ValidationError('A senha deve ter pelo menos 8 caracteres.')
+
+        if not re.search(r'[A-Z]', senha):
+            raise ValidationError('A senha deve conter pelo menos uma letra maiúscula.')
+
+        if not re.search(r'[0-9]', senha):
+            raise ValidationError('A senha deve conter pelo menos um número.')
+
+        if not re.search(r'[!@#$%^&*()_+\-=\[\]{};\'\\:"|,.<>\/?]', senha):
+            raise ValidationError('A senha deve conter pelo menos um caractere especial.')
+
+        return senha
 
     def clean_cpf(self):
         cpf = self.cleaned_data.get('cpf')

@@ -18,7 +18,35 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('input', verificarCampos);
 });
 
+/* Abrir tendencias */
+document.addEventListener("DOMContentLoaded", function() {
+    var modelButton = document.querySelector(".model");
+    var popup = document.getElementById("popup");
+    var closeButton = document.querySelector(".close");
+    var selectElement = document.getElementById("listaAcoes");
+    var tendenciaDiv = document.getElementById("tendencia");
 
-/* --------------------------- Adicionando a nav --------------------------------- */
+    // Exibir o pop-up quando o botão "Veja as tendências aqui" for clicado
+    modelButton.onclick = function() {
+        popup.style.display = "block";
+    }
 
+    // Fechar o pop-up quando o botão de fechar for clicado
+    closeButton.onclick = function() {
+        popup.style.display = "none";
+    }
 
+    // Fechar o pop-up quando clicar fora dele
+    window.onclick = function(event) {
+        if (event.target == popup) {
+            popup.style.display = "none";
+        }
+    }
+
+    // Exibir a div "tendencia" quando uma opção for selecionada
+    selectElement.addEventListener("change", function() {
+        if (selectElement.value) {
+            tendenciaDiv.style.display = "block";
+        }
+    });
+});
