@@ -6,11 +6,13 @@ on:
 jobs:
   auto-commit:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Permissão necessária para fazer push
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-
+        
       - name: Set up Python
         uses: actions/setup-python@v3
         with:
@@ -22,7 +24,7 @@ jobs:
           pip install pandas numpy scikit-learn matplotlib seaborn pymongo dnspython yfinance
           python model_training.py
           python predict.py
-          
+
       - name: List Installed Packages
         run: |
           pip list
@@ -42,4 +44,4 @@ jobs:
         run: |
           git add .
           git commit -m "Automated commit on $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
-          git push
+          git push https://LeoRodaelli:${{ secrets.GITHUB_TOKEN }}@github.com/LeoRodaelli/investAI.git
