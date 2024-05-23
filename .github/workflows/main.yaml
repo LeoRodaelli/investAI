@@ -2,6 +2,8 @@ name: Execute Python Script
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '55 13 * * *'
 
 jobs:
   auto-commit:
