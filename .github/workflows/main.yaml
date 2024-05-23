@@ -29,13 +29,14 @@ jobs:
           pip install yfinance
           python model_training.py
           python predict.py
+          
       - name: List Installed Packages
         run: |
           pip list
 
       - name: Configuring git credentials
         run: |
-          git config --global user.email "leonardo@rodaelli.com.br"
+          git config --global user.email "leo@rodaelli.com.br"
           git config --global user.name "LeoRodaelli"
 
       - name: Set up repository
@@ -47,9 +48,7 @@ jobs:
           echo "Log of automatic commit at $(date)" >> autocommit.log
 
       - name: Commit and push if changes
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git add .
           git commit -m "Automated commit on $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
-          git push origin HEAD:main
+          git push
