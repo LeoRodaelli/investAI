@@ -32,18 +32,14 @@ jobs:
           git config --global user.email "leo@rodaelli.com.br"
           git config --global user.name "LeoRodaelli"
 
-      - name: Set up repository
-        run: |
-          git remote set-url origin https://LeoRodaelli:${{ secrets.GH_TOKEN }}@github.com/LeoRodaelli/investAI.git
-
       - name: Make changes
         run: |
           echo "Log of automatic commit at $(date)" >> autocommit.log
 
       - name: Commit and push if changes
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git add .
           git commit -m "Automated commit on $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
-          git push origin HEAD:main
+          git push
