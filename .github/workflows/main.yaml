@@ -35,12 +35,12 @@ jobs:
 
       - name: Configuring git credentials
         run: |
-          git config --global user.email "leo@rodaelli.com.br"
+          git config --global user.email "leonardo@rodaelli.com.br"
           git config --global user.name "LeoRodaelli"
 
       - name: Set up repository
         run: |
-          git remote set-url origin https://LeoRodaelli:${{ secrets.GH_TOKEN }}@github.com/LeoRodaelli/investAI.git
+          git remote set-url origin https://LeoRodaelli:${{ secrets.GH_TOKEN }}@github.com/LeoRodaelli/investAI
 
       - name: Make changes
         run: |
