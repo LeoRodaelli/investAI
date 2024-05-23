@@ -63,3 +63,11 @@ class RegistrationForm(forms.Form):
 class LoginForm(forms.Form):
     email = forms.EmailField(label='', widget=forms.TextInput(attrs={'placeholder': 'Email', 'id': 'email'}))
     senha = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder': 'Senha', 'id': 'senha'}))
+
+
+class ProfileForm(forms.Form):
+    perfil_investidor = forms.ChoiceField(label='', choices=[
+        ('conservador', 'Conservador'),
+        ('moderado', 'Moderado'),
+        ('arrojado', 'Arrojado'),
+    ], widget=forms.Select(attrs={'id':'perfil_investidor'}))

@@ -1,0 +1,68 @@
+.coluna {
+    flex: 1; /* Para que as colunas ocupem a mesma largura */
+    margin: 10px; /* Para adicionar um espaçamento entre as colunas */
+}
+
+.conteudo {
+    font-family: 'Carrois Gothic', sans-serif;
+    margin: 70px;
+    margin-bottom: 300px;
+    display: flex;
+    justify-content: space-around; /* Para espaçar as colunas igualmente */
+}
+
+.conteudo h1 {
+    font-size: 25px;
+}
+
+.questao {
+    padding: 10px;
+}
+
+.conteudo h2 {
+    font-size: 20px;
+}
+
+.questao label {
+    margin: 10px;
+}
+
+.questao select {
+    border-radius: 20px;
+    width: 35%;
+    padding: 5px 15px;
+    border-color: #E6B43E;
+}
+
+.button {
+    display: block;
+    width: 150px; 
+    margin: 30px 0;
+    padding: 10px 20px; 
+    background-color: #d4a330;
+    color: white;
+    text-align: center;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background-color 0.3s; 
+    font-size: 14px;
+    margin-bottom: 100px;
+    border: none;
+}
+
+
+.button:hover {
+    background-color: #333; 
+}
+
+.button:disabled {
+    background-color: #ccc; /* Cor acizentada */
+    color: #999; /* Cor do texto acizentado */
+    cursor: not-allowed; /* Cursor padrão quando desativado */
+}
+
+.linha-vertical {
+    border-right: 1px solid #ccc; /* Cor e espessura da linha */
+    height: 100%; /* Altura igual à altura das colunas */
+    margin-left: 20px; /* Espaçamento entre a linha e a coluna */
+}
