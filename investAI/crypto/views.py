@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, reverse
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from pymongo import MongoClient
-from .forms import RegistrationForm, LoginForm, ProfileForm
+from .forms import RegistrationForm, LoginForm, ProfileForm, WalletForm
 
 connection_string = "mongodb+srv://matheusp4:b4YEq95UskHGaC3k@invest.aju5sat.mongodb.net/?retryWrites=true&w=majority&appName=Invest"
 client = MongoClient(connection_string)
@@ -172,3 +172,30 @@ def perfil(request):
     return render(request, "perfil.html", {
         'perfil': perfil, 'form': form
     })
+
+
+def carteira(request):
+    if request.method == "POST":
+        form = WalletForm(request.POST)
+
+        if form.is_valid():
+
+            acao = form.cleaned_data["acao_adquirida"]
+            categoria = form.cleaned_data["categoria_acao"]
+
+            email = request.session.get('email')
+
+            mongo_client = MongoClient("mongodb+srv://matheusp4:b4YEq95UskHGaC3k@invest.aju5sat.mongodb.net/?retryWrites=true&w=majority&appName=Invest")  # Insira a sua connection string aqui
+            db = mongo_client["Invest"]
+            collection = db["Usuarios"]
+
+            filtro = {"email": email}
+            acoes = {"$push": {"acao_adquirida": acao, "categoria_acao": categoria}}
+
+            collection.update_one(filtro, acoes)
+
+        return redirect("homeLogado")
+    else:
+        form = WalletForm()
+    return render(request, "carteira.html", {'form': form })
+

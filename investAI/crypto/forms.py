@@ -71,3 +71,12 @@ class ProfileForm(forms.Form):
         ('moderado', 'Moderado'),
         ('arrojado', 'Arrojado'),
     ], widget=forms.Select(attrs={'id':'perfil_investidor'}))
+
+
+class WalletForm(forms.Form):
+    acao_adquirida = forms.CharField(max_length=100, label='',widget=forms.TextInput(attrs={'placeholder': 'Acao', 'id': 'acao'}))
+    categoria_acao = forms.ChoiceField(label='', choices=[
+        ('conservador', 'Conservador'),
+        ('moderado', 'Moderado'),
+        ('arrojado', 'Arrojado'),
+    ], widget=forms.Select(attrs={'id':'categoria_acao'}))
