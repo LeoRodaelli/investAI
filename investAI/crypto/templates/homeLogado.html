@@ -21,14 +21,37 @@
             <p>▻ CPF: {{cpf}}</p>
         </div>
 
+        <!--
         <div class="tendencias">
             <button class="model">Veja as tendências aqui</button>
+            {{previsao}}
         </div>
+        //-->
+
+        <table style="width:100%">
+            <tr>
+                <th style="border:1px solid black">Ticker</th>
+                <th style="border:1px solid black">Tendência</th>
+                <th style="border:1px solid black">Previsão</th>
+                <th style="border:1px solid black">Tendência Geral</th>
+                <th style="border:1px solid black">Data de Previsão</th>
+            </tr>
+            {% for item in previsao %}
+                <tr style="{% if item.trend == "Alta" %}background-color: lightgreen;{% else %}background-color: pink;{% endif %}">
+                    <td style="border:1px solid black">{{item.ticker}}</td>
+                    <td style="border:1px solid black">{{item.trend}}</td>
+                    <td style="border:1px solid black">{{item.prediction}}</td>
+                    <td style="border:1px solid black">{{item.overall_trend}}</td>
+                    <td style="border:1px solid black">{{item.prediction_date}}</td>
+                </tr>
+            {% endfor %}
+        </table>
 
         <div class="imagem">
             <img src="{% static "images/Banner5.png" %}" alt="Banner investimento">
         </div>
 
+        <!--
         <div id="popup" class="popup" style="display: none;">
             <div class="popup-content">
                 <span class="close">&times;</span>
@@ -47,6 +70,7 @@
                 </div>
             </div>
         </div>
+        //-->
 
         <div class="botoes">
             <a href="{% url 'carteira'%}" type="button">Carteira Digital</a>

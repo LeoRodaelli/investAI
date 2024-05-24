@@ -109,3 +109,12 @@
     font-size: 17px;
     margin: 30px;
 }
+
+.green {
+    background-color: green; /* Cor de fundo para destaque */
+    color: white;
+}
+.red {
+    background-color: red; /* Cor de fundo padrão */
+    color: white
+}

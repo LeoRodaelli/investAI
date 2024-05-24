@@ -124,19 +124,27 @@ def homeLogado(request):
 
     mongo_client = MongoClient("mongodb+srv://matheusp4:b4YEq95UskHGaC3k@invest.aju5sat.mongodb.net/?retryWrites=true&w=majority&appName=Invest")
     db = mongo_client["Invest"]
-    user_collection = db["Usuarios"]
+    prediction_collection = db["predictions"]
 
     email = request.session.get('email')
     usuarioName = request.session.get('usuarioName')
     cpf = request.session.get('cpf')
-    previsao = request.session.get('previsao')
     perfil = request.session.get('perfil')
 
-    usuario = user_collection.find_one({"email": email})
+    previsoes = []
+    for prediction in prediction_collection.find():
+        if prediction["model"] == "GradientBoosting":
+            previsoes.append({
+                'ticker': prediction['ticker'],
+                'trend': prediction["trend"],
+                'prediction': prediction["prediction"],
+                'overall_trend': prediction["overall_trend"],
+                'prediction_date': prediction["prediction_date"],
+            })
 
     return render(request, "homeLogado.html", {
         'email': email, 
-        'previsao': previsao, 
+        'previsao': previsoes, 
         'usuarioName': usuarioName,
         'cpf': cpf,
         'perfil': perfil
