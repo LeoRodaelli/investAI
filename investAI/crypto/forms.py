@@ -74,8 +74,8 @@ class ProfileForm(forms.Form):
 
 
 class WalletForm(forms.Form):
-    acao_adquirida = forms.CharField(max_length=100, label='',widget=forms.TextInput(attrs={'placeholder': 'Acao', 'id': 'acao'}))
-    categoria_acao = forms.ChoiceField(label='', choices=[
+    acao_adquirida = forms.CharField(max_length=100, label='Ação adquirida:',widget=forms.TextInput(attrs={'placeholder': 'Ações', 'id': 'acao'}))
+    categoria_acao = forms.ChoiceField(label='Categoria:', choices=[
         ('conservador', 'Conservador'),
         ('moderado', 'Moderado'),
         ('arrojado', 'Arrojado'),

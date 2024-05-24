@@ -33,6 +33,10 @@
     color: rgb(240, 110, 110);
 }
 
+h2 {
+    font-family: 'Carrois Gothic', sans-serif;
+}
+
 p {
     font-family: 'Carrois Gothic', sans-serif;
     margin-top: 10px;
@@ -83,3 +87,10 @@ p {
     color: #999; /* Cor do texto acizentado */
     cursor: not-allowed; /* Cursor padrão quando desativado */
 }
+
+.explanation {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}
+

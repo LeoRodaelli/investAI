@@ -175,27 +175,33 @@ def perfil(request):
 
 
 def carteira(request):
+    email = request.session.get('email')
+
+    # Conectar ao MongoDB
+    mongo_client = MongoClient("mongodb+srv://matheusp4:b4YEq95UskHGaC3k@invest.aju5sat.mongodb.net/?retryWrites=true&w=majority&appName=Invest")
+    db = mongo_client["Invest"]
+    collection = db["Usuarios"]
+
+    # Buscar a carteira do usuário no banco de dados
+    usuario = collection.find_one({"email": email})
+    acoes = usuario.get('acoes', [])
+
     if request.method == "POST":
         form = WalletForm(request.POST)
-
         if form.is_valid():
+            acao_adquirida = form.cleaned_data["acao_adquirida"]
+            categoria_acao = form.cleaned_data["categoria_acao"]
 
-            acao = form.cleaned_data["acao_adquirida"]
-            categoria = form.cleaned_data["categoria_acao"]
+            # Adicionar a nova ação à carteira do usuário
+            nova_acao = {"acao_adquirida": acao_adquirida, "categoria_acao": categoria_acao}
+            collection.update_one({"email": email}, {"$push": {"acoes": nova_acao}})
 
-            email = request.session.get('email')
+            # Atualizar a lista de ações na sessão (opcional)
+            request.session['acoes'] = acoes + [nova_acao]
 
-            mongo_client = MongoClient("mongodb+srv://matheusp4:b4YEq95UskHGaC3k@invest.aju5sat.mongodb.net/?retryWrites=true&w=majority&appName=Invest")  # Insira a sua connection string aqui
-            db = mongo_client["Invest"]
-            collection = db["Usuarios"]
-
-            filtro = {"email": email}
-            acoes = {"$push": {"acao_adquirida": acao, "categoria_acao": categoria}}
-
-            collection.update_one(filtro, acoes)
-
-        return redirect("homeLogado")
+            return redirect("homeLogado")
     else:
         form = WalletForm()
-    return render(request, "carteira.html", {'form': form })
+
+    return render(request, "carteira.html", {'form': form, 'acoes': acoes})
 

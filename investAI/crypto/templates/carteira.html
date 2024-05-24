@@ -1,8 +1,8 @@
 <html>
 <head>
     <title> Invest AI </title>
-    {%load static%}
-    <link rel="stylesheet" href="{%static 'css/carteira.css'%}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/carteira.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Carrois+Gothic&display=swap" rel="stylesheet">
@@ -10,25 +10,27 @@
 <body>
 
     <div id="nav">{% include 'nav.html' %}</div>
-
     <div class="conteudo">
-        <h1>Cadastre sua carteira:</h1>
+        <div class="coluna">
+            <h1>Cadastre sua carteira:</h1>
+            <form class="cadastroAcao" id="form" name="form" method="post" action="/carteira/">
+                <h2>Cadastro:</h2>
+                {% csrf_token %}
+                <div>
+                    {{ form }}
+                </div>
 
-        <form class="cadastroAcao" id="form" name="form" method="post" action="/carteira/">
-            <h2>Cadastro:</h2>
-            {%csrf_token%}
-            <div>
-                <label>Ação Adquirida: </label>
-                <label>Categoria: </label>
-                {{form}}
-
-            </div>
-
-            <button type="submit" class="button" id="submitButton" disabled> Enviar </button>
-        </form>
-
-        <div id="icone-mais">
-            <img src= "{% static 'images/mais.png' %}" alt="Adicionar">
+                <button type="submit" class="button" id="submitButton" disabled> Enviar </button>
+            </form>
+        </div>
+        <div class="linha-vertical"></div>
+        <div class="coluna">
+            <h2>Minhas Ações</h2>
+            <ul>
+                {% for acao in acoes %}
+                    <li>{{ acao.acao_adquirida }} - {{ acao.categoria_acao }}</li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 

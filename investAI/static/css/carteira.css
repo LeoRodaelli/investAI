@@ -1,28 +1,26 @@
-.conteudo {
+body {
     font-family: 'Carrois Gothic', sans-serif;
+}
+
+.conteudo {
+    display: flex;
+    justify-content: space-between;
     margin: 70px;
     margin-bottom: 300px;
 }
 
-.conteudo h1 {
-    font-size: 25px;
+.coluna {
+    flex: 1;
+    margin: 10px;
 }
 
 .cadastroAcao {
     background: linear-gradient(to bottom, rgb(243, 240, 240) 98%, rgba(145, 144, 144, 0.9));
-    padding: 10px;
+    padding: 5px;
     border-radius: 15px;
-    margin: 30px auto;
-    max-width: 600px;
 }
 
-.cadastroAcao div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.cadastroAcao h2{
+.cadastroAcao h2 {
     font-size: 18px;
     margin-left: 30px;
 }
@@ -33,8 +31,8 @@
     margin-top: 10px;
 }
 
-.cadastroAcao input, select{
-    width: 50%; /* Defina a largura que desejar */
+.cadastroAcao input, select {
+    width: 50%;
     max-width: 450px;
     height: 35px;
     border-radius: 20px;
@@ -46,28 +44,28 @@
 }
 
 .botoes {
-    text-align: right; /* Alinha o conteúdo à direita */
-    margin-top: 20px; /* Espaçamento superior */
+    text-align: right;
+    margin-top: 20px;
 }
 
 #icone-mais img {
-    width: 50px; /* Defina a largura desejada para a imagem */
-    cursor: pointer; /* Transforma o cursor em uma mãozinha ao passar por cima */
-    margin-right: 30px; /* Espaçamento para a direita */
+    width: 50px;
+    cursor: pointer;
+    margin-right: 30px;
     float: right;
     margin-right: 20%;
 }
 
 .excluir {
-    width: 20px; /* Defina a largura desejada para a imagem e o "x" */
-    cursor: pointer; /* Transforma o cursor em uma mãozinha ao passar por cima */
-    float: right; /* Alinha à direita */
-    margin-right: 10px; /* Espaçamento à direita */
-    transition: color 0.3s; /* Adiciona uma transição suave para a mudança de cor */
+    width: 20px;
+    cursor: pointer;
+    float: right;
+    margin-right: 10px;
+    transition: color 0.3s;
 }
 
 .excluir:hover {
-    color: grey; /* Muda a cor para cinza quando o mouse passa por cima */
+    color: grey;
 }
 
 .button {
@@ -82,17 +80,32 @@
     text-decoration: none;
     transition: background-color 0.3s;
     font-size: 14px;
-    margin-bottom: 100px;
     border: none;
 }
 
+.comeback {
+    background-color: #d4a330;
+    color: white;
+    text-align: center;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    font-size: 14px;
+    border: none;
+}
 
 .button:hover {
     background-color: #333;
 }
 
 .button:disabled {
-    background-color: #ccc; /* Cor acizentada */
-    color: #999; /* Cor do texto acizentado */
-    cursor: not-allowed; /* Cursor padrão quando desativado */
+    background-color: #ccc;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.linha-vertical {
+    border-right: 1px solid #ccc;
+    height: auto;
+    margin-left: 20px;
 }

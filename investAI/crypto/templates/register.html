@@ -19,6 +19,10 @@
             {% csrf_token %}
             <h2>Cadastre sua conta:</h2>
             {{form}}
+
+            <div id="perfil-investidor-explanation" class="explanation">
+                <p id="explanation-text"></p>
+            </div>
         
             <p> Senha deve ter no mínimo 8 caracteres, 1 letra maiúscula, 1 número e 1 caractere especial.</p>
 
@@ -36,6 +40,24 @@
             <button type="submit" class="button">Enviar</button>
         </form>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const perfilInvestidorSelect = document.getElementById('perfil_investidor');
+            const explanationText = document.getElementById('explanation-text');
+
+            const explanations = {
+                conservador: 'O perfil conservador é para investidores iniciantes que evitam riscos, preferindo ativos de renda fixa e poupança devido à segurança financeira, mesmo com baixa rentabilidade. Eles valorizam retornos previsíveis e a proteção do capital.',
+                moderado: 'O perfil moderado assume riscos intermediários, busca retornos elevados sem altos riscos, e retorna a investimentos seguros quando necessário. Sua carteira é diversificada, equilibrando 50% em renda fixa e 50% em renda variável.',
+                arrojado: 'Investidores arrojados preferem rendas variáveis, buscando alta rentabilidade com riscos calculados e visão de longo prazo. Com profundo conhecimento do mercado, dedicam tempo para ajustar seus portfólios conforme necessário.',
+            };
+
+            perfilInvestidorSelect.addEventListener('change', function () {
+                const selectedValue = perfilInvestidorSelect.value;
+                explanationText.textContent = explanations[selectedValue];
+            });
+        });
+    </script>
 
 
 </body>
