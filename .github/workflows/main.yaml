@@ -3,7 +3,7 @@ name: Execute Python Script
 on:
   workflow_dispatch:
   schedule:
-    - cron: '00 01 * * *'
+    - cron: '00 01 * * 0'
 
 jobs:
   auto-commit:
@@ -25,7 +25,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install pandas numpy scikit-learn matplotlib seaborn pymongo dnspython yfinance
           python model_training.py
-          python predict.py
 
       - name: List Installed Packages
         run: |
