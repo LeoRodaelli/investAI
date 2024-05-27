@@ -42,9 +42,9 @@ class Nav(TemplateView):
     def get(self, request):
         return render(request, self.template_name)
 
-def register(response):
-    if response.method == "POST":
-        form = RegistrationForm(response.POST)
+def register(request):
+    if request.method == "POST":
+        form = RegistrationForm(request.POST)
 
         if form.is_valid():
 
@@ -61,6 +61,12 @@ def register(response):
             mongo_client = MongoClient("mongodb+srv://matheusp4:b4YEq95UskHGaC3k@invest.aju5sat.mongodb.net/?retryWrites=true&w=majority&appName=Invest")  # Insira a sua connection string aqui
             db = mongo_client["Invest"]
             collection = db["Usuarios"]
+            prediction_collection = db["predictions"]
+
+            previsao = prediction_collection.find_one({"model": "GradientBoosting"})
+
+            if previsao and "_id" in previsao:
+                previsao["_id"] = str(previsao["_id"])
 
             document = {
                 "nome": nome,
@@ -74,12 +80,18 @@ def register(response):
 
             collection.insert_one(document)
 
+            request.session['email'] = email
+            request.session['usuarioName'] = nome
+            request.session['cpf'] = cpf
+            request.session['perfil'] = perfil
+            request.session['previsao'] = previsao
+
             print(f"Usuário adicionado com sucesso!")
 
-        return redirect("home")
+        return redirect("homeLogado")
     else:
         form = RegistrationForm()
-    return render(response, "register.html", {'form': form })
+    return render(request, "register.html", {'form': form })
 
 def login(request):
     if request.method == "POST":
