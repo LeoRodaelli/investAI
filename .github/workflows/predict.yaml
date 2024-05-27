@@ -2,11 +2,14 @@ name: Execute Python Script
 
 on:
   workflow_dispatch:
-
+  schedule:
+    - cron: '00 01 * * *'
 
 jobs:
-  execute:
+  auto-commit:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Permissão necessária para fazer push
 
     steps:
       - name: Checkout Repository
@@ -20,16 +23,26 @@ jobs:
       - name: Install Dependencies and Run Script
         run: |
           python -m pip install --upgrade pip
-          pip install pandas
-          pip install numpy
-          pip install scikit-learn
-          pip install matplotlib
-          pip install seaborn
-          pip install pymongo
-          pip install dnspython
-          pip install yfinance
-          python model_training.py
+          pip install pandas numpy scikit-learn matplotlib seaborn pymongo dnspython yfinance
           python predict.py
+
       - name: List Installed Packages
         run: |
           pip list
+
+      - name: Configuring git credentials
+        run: |
+          git config --global user.email "leo@rodaelli.com.br"
+          git config --global user.name "LeoRodaelli"
+
+      - name: Make changes
+        run: |
+          echo "Log of automatic commit at $(date)" >> autocommit.log
+
+      - name: Commit and push if changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git add .
+          git commit -m "Automated commit on $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+          git push https://LeoRodaelli:${{ secrets.GITHUB_TOKEN }}@github.com/LeoRodaelli/investAI.git
