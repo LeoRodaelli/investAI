@@ -3,7 +3,7 @@ name: Execute Python Script
 on:
   workflow_dispatch:
   schedule:
-    - cron: '00 00 * * *'
+    - cron: '00 00 * * *' #alterar para 00 02 * * 0, apos dar certo
 
 jobs:
   auto-commit:
